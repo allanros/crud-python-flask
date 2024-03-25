@@ -15,7 +15,7 @@ def create_task():
     task_id_control += 1
     tasks.append(new_task)
     print(tasks)
-    return jsonify({'message': 'Task created successfully'})
+    return jsonify({'message': 'Task created successfully', 'id': new_task.task_id})
 
 @app.route('/tasks', methods=['GET'])
 def list_tasks():
@@ -41,7 +41,7 @@ def update_task(task_id):
             print(task.to_dict())
             task.update_task(data['title'], data.get('description', ''), data.get('completed', False))
             print(task.to_dict())
-            return jsonify({'message': 'Task updated successfully'})
+            return jsonify({'message': 'Task updated successfully', 'id': task.task_id}), 200
     return jsonify({'message': 'Task not found'}), 404
 
 @app.route('/tasks/<int:task_id>', methods=['DELETE'])
